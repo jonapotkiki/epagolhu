@@ -1,0 +1,48 @@
+const Discord = require('discord.js');
+const bot = new Discord.Client();
+const TOKEN = 'NTQzODM3NTc5NDIyOTkwMzQ4.D0CeeA.vTbSpNNKaYDC8xI7730__ph1Pes'
+
+bot.on('message', function(message){
+    if(message.content == '/segítség')
+    {
+        message.reply('Szia! Rectón helyettesítésével vagyok megbízva, amikor õ nem elérhetõ! :) Szóval miben segíthetek? (!ötletemlenne)');
+    }
+});
+
+
+bot.on('message', function(message){
+    if(message.content == '/ötletemlenne')
+    {
+        message.channel.send('Ezt örömmel hallom :). Kíváncsian várom az ötletedet az #ötletszoba -ba, vagy az otletek@epagol.hu email címre.');
+    }
+
+});
+
+
+bot.on('ready', () => {
+    bot.user.setGame('/segítség')
+  })
+
+
+//runs the message looker thingy
+bot.on('message', async message => {
+    //1 blacklisted words
+    let blacklisted = ['barom', 'rohadék', 'kurva', 'fasz', 'balfasz', 'kuksi', 'kuki', 'szar'] //words put , after the word
+  
+    //2 looking for words
+    let foundInText = false;
+    for (var i in blacklisted) { // loops through the blacklisted list
+      if (message.content.toLowerCase().includes(blacklisted[i].toLowerCase())) foundInText = true;
+    }
+    // checks casesensitive words
+  
+    //3 deletes and send message
+      if (foundInText) {
+        message.delete();
+        message.channel.send('Nana! Még jó hogy itt vagyok! Ne beszélj ilyen csúnyán :(')
+    }
+
+  });
+
+
+bot.login(TOKEN)
